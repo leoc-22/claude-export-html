@@ -31,6 +31,16 @@ In the desktop app, click **+** next to the prompt box, then **Plugins**. Choose
 
 Node.js must be on your `PATH`.
 
+### As a skill (no marketplace)
+
+If your organization blocks third-party plugin marketplaces, install the skill instead:
+
+```
+npx skills add leoc-22/claude-export-html
+```
+
+Then ask Claude to export the session, or run `/export-html`. The skill runs the same exporter, so the output is identical.
+
 ## Use
 
 ```
