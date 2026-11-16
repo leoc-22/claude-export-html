@@ -1,0 +1,5 @@
+{
+  "name": "claude-export-html",
+  "owner": { "name": "leoc-22" },
+  "plugins": [{ "name": "export-html", "source": "./" }]
+}

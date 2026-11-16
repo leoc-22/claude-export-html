@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{TITLE}}</title>
+<style>
+{{CSS}}
+</style>
+</head>
+<body>
+<button id="menu" title="Session tree" aria-label="Open session tree">☰</button>
+<div id="overlay"></div>
+<div id="app">
+  <aside id="sidebar">
+    <div class="side-head">
+      <input id="search" type="search" placeholder="Search…  ( / )" autocomplete="off">
+      <div class="filters" id="filters">
+        <button data-filter="default" class="on" title="Everything except hidden context">Default</button>
+        <button data-filter="no-tools" title="Hide tool calls and results">No tools</button>
+        <button data-filter="user" title="Only your prompts">User</button>
+        <button data-filter="errors" title="Failed tool calls and warnings">Errors</button>
+        <button data-filter="all" title="Show everything, hidden context included">All</button>
+      </div>
+      <div class="chips" id="chips"></div>
+    </div>
+    <div id="tree"></div>
+    <div id="tree-status"></div>
+  </aside>
+  <div id="resizer" role="separator" aria-orientation="vertical"></div>
+  <main id="main">
+    <header id="header"></header>
+    <div id="messages"></div>
+  </main>
+</div>
+<div id="modal"><img alt=""></div>
+<script id="session-data" type="application/json">{{DATA}}</script>
+<script>{{MARKED}}</script>
+<script>{{HLJS}}</script>
+<script>
+{{VIEWER}}
+</script>
+</body>
+</html>
