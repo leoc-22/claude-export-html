@@ -3,6 +3,7 @@
 //
 //   node export.mjs --session <id> [--out <file>] [--context]
 //   node export.mjs --jsonl <path/to/session.jsonl> [--out <file>] [--context]
+//   node export.mjs --latest [--out <file>] [--context]   (newest session for the current folder)
 //
 // Prints one JSON line: { "path": "<written file>", "entries": N, "bytes": N }.
 import { readFileSync, writeFileSync, existsSync, readdirSync, mkdirSync, statSync } from 'node:fs'
@@ -20,6 +21,7 @@ function parseArgs(argv) {
     else if (a === '--jsonl') out.jsonl = argv[++i]
     else if (a === '--out') out.out = argv[++i]
     else if (a === '--context') out.context = true
+    else if (a === '--latest') out.latest = true
     else if (a === '--title') out.title = argv[++i]
   }
   return out
@@ -34,6 +36,28 @@ function findTranscript(sessionId) {
     if (existsSync(candidate)) return candidate
   }
   return undefined
+}
+
+/** The most recently written transcript for the current folder, else for any folder. */
+function findLatest() {
+  const base = process.env.CLAUDE_CONFIG_DIR || join(homedir(), '.claude')
+  const projects = join(base, 'projects')
+  if (!existsSync(projects)) return undefined
+  const newest = dirs => {
+    let best
+    for (const dir of dirs) {
+      if (!existsSync(dir)) continue
+      for (const name of readdirSync(dir)) {
+        if (!name.endsWith('.jsonl')) continue
+        const path = join(dir, name)
+        const mtime = statSync(path).mtimeMs
+        if (!best || mtime > best.mtime) best = { path, mtime }
+      }
+    }
+    return best?.path
+  }
+  const here = join(projects, process.cwd().replace(/[^a-zA-Z0-9]/g, '-'))
+  return newest([here]) ?? newest(readdirSync(projects).map(d => join(projects, d)))
 }
 
 function readJsonl(path) {
@@ -331,9 +355,12 @@ function readVendor(name) {
 
 function main() {
   const args = parseArgs(process.argv.slice(2))
-  const transcript = args.jsonl ? resolve(args.jsonl) : args.session && findTranscript(args.session)
+  const session = args.session && !args.session.includes('${') ? args.session : undefined
+  const transcript = args.jsonl
+    ? resolve(args.jsonl)
+    : (session && findTranscript(session)) || (args.latest || !session ? findLatest() : undefined)
   if (!transcript || !existsSync(transcript)) {
-    throw new Error(`No transcript found for ${args.jsonl ?? args.session ?? '(nothing given)'}`)
+    throw new Error(`No transcript found for ${args.jsonl ?? session ?? 'the current folder'}`)
   }
   const rows = readJsonl(transcript)
   const entries = collapseLinks(normalize(rows, args.context))
