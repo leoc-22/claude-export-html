@@ -73,7 +73,7 @@ header h1 { font-size: 15px; margin: 0 0 2px; }
 .tb { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; align-items: center; }
 .tb .hint { color: var(--faint); font-size: 11px; margin-left: auto; }
 
-#messages { padding: 10px 84px 60vh 20px; max-width: 1044px; }
+#messages { padding: 10px 84px 60vh 20px; max-width: 1044px; margin: 0 auto; }
 .msg { margin: 6px 0; position: relative; scroll-margin-top: 120px; }
 .msg.flash { animation: flash 1.2s; }
 @keyframes flash { from { background: var(--sel); } to { background: transparent; } }
