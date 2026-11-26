@@ -30,7 +30,7 @@ export const register: Register = on => {
   on('command.run', { command: COMMAND }, async ($, e) => {
     const args = parseArgs(e.args)
     const sessionId = await $.session.id()
-    const argv = ['node', `${$.plugin.root}/exporter/export.mjs`, '--session', sessionId]
+    const argv = ['node', `${$.plugin.root}/skills/export-html/scripts/export.mjs`, '--session', sessionId]
     if (args.out) argv.push('--out', args.out)
     if (args.context) argv.push('--context')
 

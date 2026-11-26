@@ -1,5 +1,5 @@
 {
   "name": "export-html",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "/export-html: export the session as one self-contained HTML page with a session tree, filters, tool chips and search"
 }

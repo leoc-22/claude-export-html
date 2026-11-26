@@ -65,7 +65,7 @@ code, pre, .mono { font-family: var(--mono); font-size: 12px; }
 .node .r-sys { color: var(--warn); }
 #tree-status { padding: 4px 8px; border-top: 1px solid var(--line); color: var(--faint); font-size: 11px; }
 
-header { padding: 14px 20px 10px; border-bottom: 1px solid var(--line); background: var(--panel);
+header { padding: 14px max(84px, calc((100% - 940px) / 2)) 10px; border-bottom: 1px solid var(--line); background: var(--panel);
   position: sticky; top: 0; z-index: 1; }
 header h1 { font-size: 15px; margin: 0 0 2px; }
 .meta { display: flex; flex-wrap: wrap; gap: 2px 14px; color: var(--dim); font-size: 12px; }
@@ -73,7 +73,7 @@ header h1 { font-size: 15px; margin: 0 0 2px; }
 .tb { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; align-items: center; }
 .tb .hint { color: var(--faint); font-size: 11px; margin-left: auto; }
 
-#messages { padding: 10px 84px 60vh 20px; max-width: 1044px; margin: 0 auto; }
+#messages { max-width: 1108px; margin: 0 auto; padding: 10px 84px 60vh; }
 .msg { margin: 6px 0; position: relative; scroll-margin-top: 120px; }
 .msg.flash { animation: flash 1.2s; }
 @keyframes flash { from { background: var(--sel); } to { background: transparent; } }
